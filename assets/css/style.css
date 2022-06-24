@@ -1,0 +1,49 @@
+
+header {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+}
+header h1 {
+    font-size: 50px;
+}
+
+.search-box {
+    border-bottom: solid 1px black;
+    margin-bottom: 20px;
+}
+.search-input {
+    border-radius: 5px;
+}
+
+.current-icon {
+    height: 61px;
+    width: 80px;
+}
+.history-box {
+    display: flex;
+    list-style-type: none;
+    background-color: #b7b7b7;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.forecast {
+    width: 200px;
+    height: 250px;
+    background-color: #33465b;
+    color: white;
+    border: solid 1px black;
+}
+.forecast-c {
+    padding-top: 10px;
+    color: white;
+}
+.forecast-icon {
+    width: 75px;
+    height: 75px;
+}
