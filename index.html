@@ -18,7 +18,7 @@
         <div class="search-box row col-4 ms-3">
             <h3 class="search-title text-start">Search for a City:</h3>
             <input id="search-input" class="search-input h-25" type="text" placeholder="City" />
-            <button id="search-btn" class="search-btn text-light bg-info rounded-3 h-25 border-0">Search</button>
+            <button id="search-btn" type="submit" class="search-btn text-light bg-info rounded-3 h-25 border-0">Search</button>
         </div>
 
         <!-- Current Day Weather -->
@@ -29,14 +29,12 @@
             <h5 class="current-temp">Temp: <span id="current-temp"></span>°F</h5>
             <h5 class="current-wind">Wind: <span id="current-wind"></span> MPH</h5>
             <h5 class="current-humidity">Humidity: <span id="current-humidity"></span>%</h5>
-            <h5 class="current-uvi">UV Index: <span id="current-uvi"></span></h5>
+            <h5 class="current-uvi" id="current-uvi"></h5>
         </div>
 
         <!-- Search History -->
         <div id="search-history" class="search-history col-4">
             <ul id="search-history-list">
-                <li class="history-box"><span class="history-city">Austin</span></li>
-                <li class="history-box"><span class="history-city">Dallas</span></li>
             </ul>
         </div>
 

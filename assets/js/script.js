@@ -4,9 +4,14 @@ let currentTemp = document.querySelector("#current-temp");
 let currentWind = document.querySelector("#current-wind");
 let currentHumidity = document.querySelector("#current-humidity");
 let currentUvi = document.querySelector("#current-uvi");
+let searchInput = document.querySelector("#search-input");
 let searchBtn = document.querySelector("#search-btn");
 let forecastBox = document.querySelector("#forecast-box");
+let searchHistoryList = document.querySelector("#search-history-list");
 let searchedCity;
+let searchHistoryArr = [];
+let sameCityTrue = false;
+let sameCityFalse;
 
 let getLatitudeLongitude = function (city) {
     let apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=00e1799fe71ebcf77ac5fe6d10034a44"
@@ -21,6 +26,11 @@ let getLatitudeLongitude = function (city) {
             }
         })
 }
+
+let searchPreviousCity = function(event) {
+    clearForecast();
+    getLatitudeLongitude(this.textContent);
+};
 
 let getWeather = function (lat, lon) {
     let apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=00e1799fe71ebcf77ac5fe6d10034a44&units=imperial";
@@ -39,10 +49,42 @@ let getWeather = function (lat, lon) {
                     // Current Humidity
                     currentHumidity.textContent = data.current.humidity;
                     // Current UVI
-                    currentUvi.textContent = data.current.uvi;
+                    currentUvi.textContent = "UV Index: " + data.current.uvi;
+                    currentUvi.className = "";
+                    if (data.current.uvi < 3) {
+                        currentUvi.classList = "uv-green";
+                    } else if (data.current.uvi < 6) {
+                        currentUvi.classList = "uv-yellow";
+                    } else if (data.current.uvi < 8) {
+                        currentUvi.classList = "uv-orange";
+                    } else if (data.current.uvi < 10) {
+                        currentUvi.classList = "uv-red";
+                    } else if (data.current.uvi > 10) {
+                        currentUvi.classList = "uv-purple";
+                    }
                     // Current Weather Icon
                     currentIcon.src = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon + ".png";
 
+                    // Create Search History
+                    for (let i = 0; i < searchHistoryArr.length; i++) {
+                        console.log(searchHistoryArr[i])
+                        if (searchedCity === searchHistoryArr[i]) {
+                            sameCityTrue = true;
+                        } else {
+                            sameCityFalse = false;
+                        }
+                    }
+                    if (!sameCityTrue) {
+                        let searchHistory = document.createElement("button");
+                        searchHistory.classList = "history-box";
+                        searchHistory.textContent = searchedCity;
+                        searchHistoryList.appendChild(searchHistory);
+                        searchHistory.addEventListener("click", searchPreviousCity);
+                        searchHistoryArr.push(searchedCity);
+                    } 
+                    console.log(searchHistoryArr);
+                    console.log(searchedCity);
+                    
                     // Get 5 Day Forecast
                     for (let i  = 0; i <= 4; i++) {
                         console.log(data);
@@ -81,4 +123,23 @@ let getWeather = function (lat, lon) {
             }
         })   
 }
-getLatitudeLongitude("Arizona");
+
+let clearForecast = () => {
+    while (forecastBox.firstChild) {
+        forecastBox.removeChild(forecastBox.firstChild);
+    }
+}
+
+let searchFunction = (event) => {
+    if (searchInput) {
+        getLatitudeLongitude(searchInput.value);
+        console.log("Hits Here");
+        clearForecast();
+    } else {
+        alert("Please enter a city.")
+    }
+};
+
+searchBtn.addEventListener("click", searchFunction);
+
+// getLatitudeLongitude("Arizona");
