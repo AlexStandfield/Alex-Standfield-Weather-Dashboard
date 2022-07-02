@@ -10,4 +10,7 @@ This project helps you easily and efficiently search for weather in different ci
 
  To clear all you need to do is refresh the page.
 
+![Alt text](/assets/img/Weather-Dashboard-LP.png "Landing Page")
+
+Url: https://alexstandfield.github.io/Alex-Standfield-Weather-Dashboard/
  
