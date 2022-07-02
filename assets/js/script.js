@@ -39,6 +39,7 @@ let getWeather = function (lat, lon) {
         .then(function(response) {
             if (response.ok) {
                 response.json().then(function(data) {
+                    console.log(data);
                     let date = new Date().toLocaleString("en-US", {timeZone: data.timezone})
                     date = date.split(",");
                     cityDate.textContent = searchedCity + " " + date[0];
@@ -67,7 +68,7 @@ let getWeather = function (lat, lon) {
 
                     // Create Search History
                     for (let i = 0; i < searchHistoryArr.length; i++) {
-                        console.log(searchHistoryArr[i])
+                        // Check if searched city is already in search history
                         if (searchedCity === searchHistoryArr[i]) {
                             sameCityTrue = true;
                         } else {
@@ -82,18 +83,19 @@ let getWeather = function (lat, lon) {
                         searchHistory.addEventListener("click", searchPreviousCity);
                         searchHistoryArr.push(searchedCity);
                     } 
-                    console.log(searchHistoryArr);
-                    console.log(searchedCity);
                     
                     // Get 5 Day Forecast
-                    for (let i  = 0; i <= 4; i++) {
-                        console.log(data);
+                    for (let i  = 1; i <= 5; i++) {
                         let forecast = document.createElement("div");
                         forecast.classList = "forecast col-1";
                         // Get Date
+                        // Get Unix Tiem and Convert to mm/dd/yyyy
+                        let unixTime = data.daily[i].dt;
+                        let newDate = new Date(unixTime * 1000);
+                        newDate = newDate.toLocaleDateString("en-US");
                         let forecastDate = document.createElement("h5");
                         forecastDate.classList = "forecast-c";
-                        forecastDate.textContent = "Date: ";
+                        forecastDate.textContent = "Date: " + newDate;
                         forecast.appendChild(forecastDate);
                         // Get Icon
                         let forecastIcon = document.createElement("img");
@@ -141,5 +143,3 @@ let searchFunction = (event) => {
 };
 
 searchBtn.addEventListener("click", searchFunction);
-
-// getLatitudeLongitude("Arizona");
