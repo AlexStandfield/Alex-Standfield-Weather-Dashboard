@@ -14,7 +14,7 @@ let sameCityTrue = false;
 let sameCityFalse;
 
 let getLatitudeLongitude = function (city) {
-    let apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=00e1799fe71ebcf77ac5fe6d10034a44"
+    let apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=5&appid=00e1799fe71ebcf77ac5fe6d10034a44"
     searchedCity = city;
     fetch(apiUrl)
         .then(function(response) {
@@ -64,7 +64,7 @@ let getWeather = function (lat, lon) {
                         currentUvi.classList = "uv-purple";
                     }
                     // Current Weather Icon
-                    currentIcon.src = "http://openweathermap.org/img/wn/"+ data.current.weather[0].icon + ".png";
+                    currentIcon.src = "https://openweathermap.org/img/wn/"+ data.current.weather[0].icon + ".png";
 
                     // Create Search History
                     for (let i = 0; i < searchHistoryArr.length; i++) {
@@ -100,7 +100,7 @@ let getWeather = function (lat, lon) {
                         // Get Icon
                         let forecastIcon = document.createElement("img");
                         forecastIcon.classList = "forecast-icon";
-                        forecastIcon.setAttribute("src", "http://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon + ".png");
+                        forecastIcon.setAttribute("src", "https://openweathermap.org/img/wn/"+ data.daily[i].weather[0].icon + ".png");
                         forecast.appendChild(forecastIcon);
                         // Get Temp
                         let forecastTemp = document.createElement("h5");
